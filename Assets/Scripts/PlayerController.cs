@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
         hAxis = Input.GetAxisRaw("Horizontal");
         vAxis = Input.GetAxisRaw("Vertical");
         walkDown = Input.GetButton("Walk");
-        fireDown = Input.GetButtonDown("Fire1");
+        fireDown = Input.GetButton("Fire1");
         jumpDown = Input.GetButtonDown("Jump");
         interactionDown = Input.GetButtonDown("Interaction");
         swapDown1 = Input.GetButtonDown("Swap1");
@@ -123,7 +123,7 @@ public class PlayerController : MonoBehaviour
         if (fireDown && isFireReady && !isDodge && !isSwap)
         {
             equipWeapon.Use();
-            anim.SetTrigger("doSwing");
+            anim.SetTrigger(equipWeapon.type == Weapon.Type.Melee ? "doSwing" : "doShot");
             fireDelay = 0;
         }
     }
