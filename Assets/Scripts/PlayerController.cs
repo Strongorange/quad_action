@@ -253,6 +253,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void FreezeRotation()
+    {
+        // 물리 회전 속도. 캐릭터가 다른 물체에 닿았을때 자동으로 회전하는 문제 해결
+        rigid.angularVelocity = Vector3.zero;
+    }
+
+    void FixedUpdate()
+    {
+        FreezeRotation();
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Item")
