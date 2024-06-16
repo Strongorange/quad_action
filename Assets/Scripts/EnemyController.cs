@@ -23,19 +23,24 @@ public class EnemyController : MonoBehaviour
         {
             Weapon weapon = other.GetComponent<Weapon>();
             currentHealth -= weapon.damage;
+            Vector3 reactVec = transform.position - other.transform.position;
+
             Debug.Log("Melee" + currentHealth);
-            StartCoroutine("OnDamage");
+            StartCoroutine(OnDamage(reactVec));
         }
         else if (other.tag == "Bullet")
         {
             Bullet bullet = other.GetComponent<Bullet>();
             currentHealth -= bullet.damage;
+            Vector3 reactVec = transform.position - other.transform.position;
+            Destroy(bullet.gameObject);
+
             Debug.Log("Range " + currentHealth);
-            StartCoroutine("OnDamage");
+            StartCoroutine(OnDamage(reactVec));
         }
     }
 
-    IEnumerator OnDamage()
+    IEnumerator OnDamage(Vector3 reactVec)
     {
         material.color = Color.red;
         yield return new WaitForSeconds(0.1f);
@@ -48,6 +53,11 @@ public class EnemyController : MonoBehaviour
         {
             material.color = Color.gray;
             gameObject.layer = 14; // EnymyDead
+
+            reactVec = reactVec.normalized;
+            reactVec += Vector3.up;
+            rigid.AddForce(reactVec * 5, ForceMode.Impulse);
+
             Destroy(gameObject, 4);
         }
     }
