@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public bool[] hasWeapons;
     public GameObject[] grenades;
     public int hasGrenades;
+    public GameObject grenadeObj;
 
     public int maxAmmo;
     public int maxHealth;
@@ -27,6 +28,7 @@ public class PlayerController : MonoBehaviour
     bool fireDown;
     bool reloadDown;
     bool jumpDown;
+    bool grenadeDown;
     bool interactionDown;
     bool swapDown1;
     bool swapDown2;
@@ -63,6 +65,7 @@ public class PlayerController : MonoBehaviour
         Move();
         Turn();
         Jump();
+        Grenade();
         Attack();
         Reload();
         Dodge();
@@ -76,6 +79,7 @@ public class PlayerController : MonoBehaviour
         vAxis = Input.GetAxisRaw("Vertical");
         walkDown = Input.GetButton("Walk");
         fireDown = Input.GetButton("Fire1");
+        grenadeDown = Input.GetButtonDown("Fire2");
         reloadDown = Input.GetButtonDown("Reload");
         jumpDown = Input.GetButtonDown("Jump");
         interactionDown = Input.GetButtonDown("Interaction");
@@ -133,6 +137,38 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("isJump", true);
             anim.SetTrigger("doJump");
             isJump = true;
+        }
+    }
+
+    void Grenade()
+    {
+        if (hasGrenades == 0)
+        {
+            return;
+        }
+
+        if (grenadeDown && !isReload && !isSwap)
+        {
+            Ray ray = followCamera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit rayHit;
+            if (Physics.Raycast(ray, out rayHit, 100))
+            {
+                // out 키워드란 ray Raycast 함수의 결과를 rayHit 변수에 담는다는 말. 즉 ray가 hit한 리턴의 값이 rayHit에 담겨있음
+                Vector3 nextVec = rayHit.point - transform.position;
+                nextVec.y = 10;
+
+                GameObject instantGrenade = Instantiate(
+                    grenadeObj,
+                    transform.position,
+                    transform.rotation
+                );
+                Rigidbody rigidGrenade = instantGrenade.GetComponent<Rigidbody>();
+                rigidGrenade.AddForce(nextVec, ForceMode.Impulse);
+                rigidGrenade.AddTorque(Vector3.back * 10, ForceMode.Impulse);
+
+                hasGrenades--;
+                grenades[hasGrenades].SetActive(false);
+            }
         }
     }
 
