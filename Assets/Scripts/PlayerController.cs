@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public Camera followCamera;
     float vAxis;
     public GameObject[] weapons;
     public bool[] hasWeapons;
@@ -101,7 +102,22 @@ public class PlayerController : MonoBehaviour
 
     void Turn()
     {
+        // #1. 키보드에 의한 회전
         transform.LookAt(transform.position + moveVec);
+
+        // #2. 마우스에 의한 회전
+        if (fireDown)
+        {
+            Ray ray = followCamera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit rayHit;
+            if (Physics.Raycast(ray, out rayHit, 100))
+            {
+                // out 키워드란 ray Raycast 함수의 결과를 rayHit 변수에 담는다는 말. 즉 ray가 hit한 리턴의 값이 rayHit에 담겨있음
+                Vector3 nextVec = rayHit.point - transform.position;
+                nextVec.y = 0;
+                transform.LookAt(transform.position + nextVec);
+            }
+        }
     }
 
     void Jump()
