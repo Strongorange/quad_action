@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     public float speed;
     bool walkDown;
     bool fireDown;
+    bool reloadDown;
     bool jumpDown;
     bool interactionDown;
     bool swapDown1;
@@ -34,6 +35,7 @@ public class PlayerController : MonoBehaviour
     bool isDodge;
     bool isSwap;
     bool isFireReady;
+    bool isReload;
 
     Vector3 moveVec;
     Vector3 dodgeVec;
@@ -60,6 +62,7 @@ public class PlayerController : MonoBehaviour
         Turn();
         Jump();
         Attack();
+        Reload();
         Dodge();
         Swap();
         Interaction();
@@ -71,6 +74,7 @@ public class PlayerController : MonoBehaviour
         vAxis = Input.GetAxisRaw("Vertical");
         walkDown = Input.GetButton("Walk");
         fireDown = Input.GetButton("Fire1");
+        reloadDown = Input.GetButtonDown("Reload");
         jumpDown = Input.GetButtonDown("Jump");
         interactionDown = Input.GetButtonDown("Interaction");
         swapDown1 = Input.GetButtonDown("Swap1");
@@ -126,6 +130,30 @@ public class PlayerController : MonoBehaviour
             anim.SetTrigger(equipWeapon.type == Weapon.Type.Melee ? "doSwing" : "doShot");
             fireDelay = 0;
         }
+    }
+
+    void Reload()
+    {
+        if (equipWeapon == null || equipWeapon.type == Weapon.Type.Melee || ammo == 0)
+        {
+            return;
+        }
+
+        if (reloadDown && !isJump && !isDodge && !isSwap && isFireReady)
+        {
+            anim.SetTrigger("doReload");
+            isReload = true;
+
+            Invoke("ReloadOut", 2f);
+        }
+    }
+
+    void ReloadOut()
+    {
+        int willAmmo = ammo < equipWeapon.maxAmmo ? ammo : equipWeapon.maxAmmo;
+        equipWeapon.currentAmmo = willAmmo;
+        ammo -= willAmmo;
+        isReload = false;
     }
 
     void Dodge()
