@@ -358,6 +358,11 @@ public class PlayerController : MonoBehaviour
             {
                 Bullet enemyBullet = other.GetComponent<Bullet>();
                 health -= enemyBullet.damage;
+                if (other.GetComponent<Rigidbody>() != null)
+                {
+                    // 미사일만 rigidbody를 가짐 이로써 미사일을 구별
+                    Destroy(other.gameObject);
+                }
                 StartCoroutine(OnDamage());
             }
         }
