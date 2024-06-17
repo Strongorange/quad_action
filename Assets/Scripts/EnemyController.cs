@@ -1,20 +1,59 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI; // NavMeshAgent를 위해 namgespace 사용
 
 public class EnemyController : MonoBehaviour
 {
     public int maxHealth;
     public int currentHealth;
+    public Transform target;
+    public bool isChase;
     Rigidbody rigid;
     BoxCollider boxCollider;
     Material material;
+    NavMeshAgent nav;
+    Animator anim;
 
     void Awake()
     {
         rigid = GetComponent<Rigidbody>();
         boxCollider = GetComponent<BoxCollider>();
-        material = GetComponent<MeshRenderer>().material;
+        material = GetComponentInChildren<MeshRenderer>().material;
+        nav = GetComponent<NavMeshAgent>();
+        anim = GetComponentInChildren<Animator>();
+
+        Invoke("ChaseStart", 2);
+    }
+
+    void FreezeVelocity()
+    {
+        if (isChase)
+        {
+            // 물리력이 NavAgent 이동을 방해하지 않도록 로직 추가
+            rigid.velocity = Vector3.zero;
+            // 물리 회전 속도. 캐릭터가 다른 물체에 닿았을때 자동으로 회전하는 문제 해결
+            rigid.angularVelocity = Vector3.zero;
+        }
+    }
+
+    void FixedUpdate()
+    {
+        FreezeVelocity();
+    }
+
+    void ChaseStart()
+    {
+        isChase = true;
+        anim.SetBool("isWalk", true);
+    }
+
+    void Update()
+    {
+        if (isChase)
+        {
+            nav.SetDestination(target.position);
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -58,8 +97,11 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
+            anim.SetTrigger("doDie");
             material.color = Color.gray;
             gameObject.layer = 14; // EnymyDead
+            nav.enabled = false; // 사망 리액션 (위로 떠오르는) 유지하기 위해서 NavAgent disable. 안하면 시체가 계속 플레이어 따라감
+            isChase = false;
 
             if (isGrenade)
             {
