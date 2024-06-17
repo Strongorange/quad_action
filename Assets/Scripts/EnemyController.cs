@@ -5,6 +5,15 @@ using UnityEngine.AI; // NavMeshAgent를 위해 namgespace 사용
 
 public class EnemyController : MonoBehaviour
 {
+    public enum Type
+    {
+        A,
+        B,
+        C
+    }
+
+    public Type enemyType;
+
     public int maxHealth;
     public int currentHealth;
     public Transform target;
@@ -42,8 +51,24 @@ public class EnemyController : MonoBehaviour
 
     void Targeting()
     {
-        float targetRadius = 1.5f;
-        float targetRange = 3f;
+        float targetRadius = 0;
+        float targetRange = 0;
+
+        switch (enemyType)
+        {
+            case Type.A:
+                targetRadius = 1.5f;
+                targetRange = 3f;
+                break;
+            case Type.B:
+                targetRadius = 1f;
+                targetRange = 6f;
+                break;
+            case Type.C:
+                targetRadius = 1f;
+                targetRange = 12f;
+                break;
+        }
 
         RaycastHit[] rayHits = Physics.SphereCastAll(
             transform.position,
@@ -65,13 +90,33 @@ public class EnemyController : MonoBehaviour
         isAttack = true;
         anim.SetBool("isAttack", true);
 
-        yield return new WaitForSeconds(0.2f);
-        meleeArea.enabled = true;
+        switch (enemyType)
+        {
+            case Type.A:
+                yield return new WaitForSeconds(0.2f);
+                meleeArea.enabled = true;
 
-        yield return new WaitForSeconds(1f);
-        meleeArea.enabled = false;
+                yield return new WaitForSeconds(1f);
+                meleeArea.enabled = false;
 
-        yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(1f);
+                break;
+            case Type.B:
+                yield return new WaitForSeconds(0.1f);
+                rigid.AddForce(transform.forward * 20, ForceMode.Impulse);
+                meleeArea.enabled = true;
+
+                yield return new WaitForSeconds(0.5f);
+                meleeArea.enabled = false;
+                rigid.velocity = Vector3.zero;
+                meleeArea.enabled = false;
+
+                yield return new WaitForSeconds(2f);
+                break;
+            case Type.C:
+                break;
+        }
+
         isChase = true;
         isAttack = false;
         anim.SetBool("isAttack", false);
