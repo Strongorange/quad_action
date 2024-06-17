@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.XR;
 
 public class PlayerController : MonoBehaviour
 {
@@ -40,10 +41,12 @@ public class PlayerController : MonoBehaviour
     bool isFireReady;
     bool isReload;
     bool isBorder;
+    bool isDamage;
 
     Vector3 moveVec;
     Vector3 dodgeVec;
     Animator anim;
+    MeshRenderer[] meshs; // 플레이어는 여러 메쉬 렌더 (여러 부분)으로 이루어져 있어 모든 렌더러를 담기위해 배열로 생성
     Rigidbody rigid;
 
     GameObject nearObject;
@@ -56,6 +59,7 @@ public class PlayerController : MonoBehaviour
     {
         anim = GetComponentInChildren<Animator>();
         rigid = GetComponent<Rigidbody>();
+        meshs = GetComponentsInChildren<MeshRenderer>();
     }
 
     // Update is called once per frame
@@ -347,6 +351,30 @@ public class PlayerController : MonoBehaviour
                     break;
             }
             Destroy(other.gameObject);
+        }
+        else if (other.gameObject.tag == "EnemyBullet")
+        {
+            if (!isDamage)
+            {
+                Bullet enemyBullet = other.GetComponent<Bullet>();
+                health -= enemyBullet.damage;
+                StartCoroutine(OnDamage());
+            }
+        }
+    }
+
+    IEnumerator OnDamage()
+    {
+        isDamage = true;
+        foreach (MeshRenderer mesh in meshs)
+        {
+            mesh.material.color = Color.yellow;
+        }
+        yield return new WaitForSeconds(1f);
+        isDamage = false;
+        foreach (MeshRenderer mesh in meshs)
+        {
+            mesh.material.color = Color.white;
         }
     }
 
