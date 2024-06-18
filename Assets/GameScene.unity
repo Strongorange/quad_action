@@ -273,6 +273,12 @@ MonoBehaviour:
   bullet: {fileID: 6467354852941063853, guid: 08c19010f87594268bc2ac30df6960d6, type: 3}
   isChase: 0
   isAttack: 0
+  isDead: 0
+  rigid: {fileID: 0}
+  boxCollider: {fileID: 0}
+  meshs: []
+  nav: {fileID: 0}
+  anim: {fileID: 0}
 --- !u!195 &19270726
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1492,6 +1498,12 @@ MonoBehaviour:
   bullet: {fileID: 0}
   isChase: 0
   isAttack: 0
+  isDead: 0
+  rigid: {fileID: 0}
+  boxCollider: {fileID: 0}
+  meshs: []
+  nav: {fileID: 0}
+  anim: {fileID: 0}
 --- !u!65 &657407003
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1568,6 +1580,12 @@ MonoBehaviour:
   bullet: {fileID: 0}
   isChase: 0
   isAttack: 0
+  isDead: 0
+  rigid: {fileID: 0}
+  boxCollider: {fileID: 0}
+  meshs: []
+  nav: {fileID: 0}
+  anim: {fileID: 0}
 --- !u!1 &662359145 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6698954167970170456, guid: 06d503bba93001142b96e3510906db62, type: 3}
@@ -1778,6 +1796,36 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!114 &811816031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 811816026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adea39063ef854531a132b6f2626bd6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyType: 3
+  maxHealth: 100
+  currentHealth: 100
+  target: {fileID: 1375360431}
+  meleeArea: {fileID: 1864529054}
+  bullet: {fileID: 2800918340259385005, guid: 7d86b4089da9e4649b8f12818e42e5ec, type: 3}
+  isChase: 0
+  isAttack: 0
+  isDead: 0
+  rigid: {fileID: 0}
+  boxCollider: {fileID: 0}
+  meshs: []
+  nav: {fileID: 0}
+  anim: {fileID: 0}
+  missile: {fileID: 4133997299847066266, guid: 0b89a0aa86cf24537aa67a1843c75289, type: 3}
+  missilePortA: {fileID: 1771748046}
+  missilePortB: {fileID: 1050876713}
+  isLook: 1
 --- !u!1 &891154472
 GameObject:
   m_ObjectHideFlags: 0
@@ -2193,6 +2241,12 @@ MonoBehaviour:
   bullet: {fileID: 0}
   isChase: 0
   isAttack: 0
+  isDead: 0
+  rigid: {fileID: 0}
+  boxCollider: {fileID: 0}
+  meshs: []
+  nav: {fileID: 0}
+  anim: {fileID: 0}
 --- !u!114 &965065101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2213,6 +2267,12 @@ MonoBehaviour:
   bullet: {fileID: 0}
   isChase: 0
   isAttack: 0
+  isDead: 0
+  rigid: {fileID: 0}
+  boxCollider: {fileID: 0}
+  meshs: []
+  nav: {fileID: 0}
+  anim: {fileID: 0}
 --- !u!65 &965065102
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18052,6 +18112,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1864529053}
   - component: {fileID: 1864529054}
+  - component: {fileID: 1864529055}
   m_Layer: 15
   m_Name: Melee Area
   m_TagString: EnemyBullet
@@ -18087,6 +18148,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.5, y: 0.5, z: 3.5}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1864529055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1864529052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbba8baf43d3b48069cd2ef887029af7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 25
+  isMelee: 1
+  isRock: 0
 --- !u!1001 &1969958869
 PrefabInstance:
   m_ObjectHideFlags: 0
