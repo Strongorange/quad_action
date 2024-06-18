@@ -358,28 +358,43 @@ public class PlayerController : MonoBehaviour
             {
                 Bullet enemyBullet = other.GetComponent<Bullet>();
                 health -= enemyBullet.damage;
-                if (other.GetComponent<Rigidbody>() != null)
-                {
-                    // 미사일만 rigidbody를 가짐 이로써 미사일을 구별
-                    Destroy(other.gameObject);
-                }
-                StartCoroutine(OnDamage());
+
+                bool isBossAttack = other.name == "Boss Melee Area";
+
+                StartCoroutine(OnDamage(isBossAttack));
+            }
+
+            if (other.GetComponent<Rigidbody>() != null)
+            {
+                // 미사일만 rigidbody를 가짐 이로써 미사일을 구별
+                Destroy(other.gameObject);
             }
         }
     }
 
-    IEnumerator OnDamage()
+    IEnumerator OnDamage(bool isBossAttack)
     {
         isDamage = true;
         foreach (MeshRenderer mesh in meshs)
         {
             mesh.material.color = Color.yellow;
         }
+
+        if (isBossAttack)
+        {
+            rigid.AddForce(transform.forward * -25, ForceMode.Impulse);
+        }
+
         yield return new WaitForSeconds(1f);
         isDamage = false;
         foreach (MeshRenderer mesh in meshs)
         {
             mesh.material.color = Color.white;
+        }
+
+        if (isBossAttack)
+        {
+            rigid.velocity = Vector3.zero;
         }
     }
 

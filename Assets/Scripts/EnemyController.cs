@@ -9,7 +9,8 @@ public class EnemyController : MonoBehaviour
     {
         A,
         B,
-        C
+        C,
+        D
     }
 
     public Type enemyType;
@@ -21,22 +22,26 @@ public class EnemyController : MonoBehaviour
     public GameObject bullet;
     public bool isChase;
     public bool isAttack;
+    public bool isDead;
 
-    Rigidbody rigid;
-    BoxCollider boxCollider;
-    Material material;
-    NavMeshAgent nav;
-    Animator anim;
+    public Rigidbody rigid;
+    public BoxCollider boxCollider;
+    public MeshRenderer[] meshs;
+    public NavMeshAgent nav;
+    public Animator anim;
 
     void Awake()
     {
         rigid = GetComponent<Rigidbody>();
         boxCollider = GetComponent<BoxCollider>();
-        material = GetComponentInChildren<MeshRenderer>().material;
+        meshs = GetComponentsInChildren<MeshRenderer>();
         nav = GetComponent<NavMeshAgent>();
         anim = GetComponentInChildren<Animator>();
 
-        Invoke("ChaseStart", 2);
+        if (enemyType != Type.D)
+        {
+            Invoke("ChaseStart", 2);
+        }
     }
 
     void FreezeVelocity()
@@ -52,6 +57,10 @@ public class EnemyController : MonoBehaviour
 
     void Targeting()
     {
+        if (enemyType == Type.D && !isDead)
+        {
+            return;
+        }
         float targetRadius = 0;
         float targetRange = 0;
 
@@ -143,7 +152,7 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        if (nav.enabled)
+        if (nav.enabled && enemyType != Type.D)
         {
             nav.SetDestination(target.position);
             nav.isStopped = !isChase;
@@ -182,18 +191,28 @@ public class EnemyController : MonoBehaviour
 
     IEnumerator OnDamage(Vector3 reactVec, bool isGrenade)
     {
-        material.color = Color.red;
+        foreach (MeshRenderer mesh in meshs)
+        {
+            mesh.material.color = Color.red;
+        }
         yield return new WaitForSeconds(0.1f);
 
         if (currentHealth > 0)
         {
-            material.color = Color.white;
+            foreach (MeshRenderer mesh in meshs)
+            {
+                mesh.material.color = Color.red;
+            }
         }
         else
         {
             anim.SetTrigger("doDie");
-            material.color = Color.gray;
+            foreach (MeshRenderer mesh in meshs)
+            {
+                mesh.material.color = Color.red;
+            }
             gameObject.layer = 14; // EnymyDead
+            isDead = true;
             nav.enabled = false; // 사망 리액션 (위로 떠오르는) 유지하기 위해서 NavAgent disable. 안하면 시체가 계속 플레이어 따라감
             isChase = false;
 
@@ -213,7 +232,10 @@ public class EnemyController : MonoBehaviour
                 rigid.AddForce(reactVec * 5, ForceMode.Impulse);
             }
 
-            Destroy(gameObject, 4);
+            if (enemyType != Type.D)
+            {
+                Destroy(gameObject, 4);
+            }
         }
     }
 }
