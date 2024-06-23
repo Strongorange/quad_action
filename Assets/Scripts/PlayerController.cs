@@ -295,6 +295,11 @@ public class PlayerController : MonoBehaviour
 
                 Destroy(nearObject);
             }
+            else if (nearObject.tag == "Shop")
+            {
+                Shop shop = nearObject.GetComponent<Shop>();
+                shop.Enter(this);
+            }
         }
     }
 
@@ -400,10 +405,9 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Weapon")
+        if (other.tag == "Weapon" || other.tag == "Shop")
         {
             nearObject = other.gameObject;
-            Debug.Log(nearObject);
         }
     }
 
@@ -411,7 +415,12 @@ public class PlayerController : MonoBehaviour
     {
         if (other.tag == "Weapon")
         {
-            Debug.Log(nearObject);
+            nearObject = null;
+        }
+        else if (other.tag == "Shop")
+        {
+            Shop shop = nearObject.GetComponent<Shop>();
+            shop.Exit();
             nearObject = null;
         }
     }
