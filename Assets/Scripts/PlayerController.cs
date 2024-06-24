@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour
     public GameObject[] grenades;
     public int hasGrenades;
     public GameObject grenadeObj;
+    public GameManager manager;
+
+    public AudioSource jumpSound;
 
     public int maxAmmo;
     public int maxHealth;
@@ -44,6 +47,7 @@ public class PlayerController : MonoBehaviour
     bool isBorder;
     bool isDamage;
     bool isShop;
+    bool isDead;
 
     Vector3 moveVec;
     Vector3 dodgeVec;
@@ -106,7 +110,7 @@ public class PlayerController : MonoBehaviour
             moveVec = dodgeVec;
         }
 
-        if (isSwap)
+        if (isSwap || isDead)
             moveVec = Vector3.zero;
 
         if (!isBorder)
@@ -124,7 +128,7 @@ public class PlayerController : MonoBehaviour
         transform.LookAt(transform.position + moveVec);
 
         // #2. 마우스에 의한 회전
-        if (fireDown)
+        if (fireDown && !isDead)
         {
             Ray ray = followCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit rayHit;
@@ -140,12 +144,13 @@ public class PlayerController : MonoBehaviour
 
     void Jump()
     {
-        if (jumpDown && moveVec == Vector3.zero && !isJump && !isDodge && !isSwap)
+        if (jumpDown && moveVec == Vector3.zero && !isJump && !isDodge && !isSwap && !isDead)
         {
             rigid.AddForce(Vector3.up * 20, ForceMode.Impulse); //ForceMode.Impuser는 즉발적인 힘을 가함
             anim.SetBool("isJump", true);
             anim.SetTrigger("doJump");
             isJump = true;
+            jumpSound.Play();
         }
     }
 
@@ -156,7 +161,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (grenadeDown && !isReload && !isSwap)
+        if (grenadeDown && !isReload && !isSwap && !isDead)
         {
             Ray ray = followCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit rayHit;
@@ -190,7 +195,7 @@ public class PlayerController : MonoBehaviour
 
         fireDelay += Time.deltaTime;
         isFireReady = equipWeapon.rate < fireDelay;
-        if (fireDown && isFireReady && !isDodge && !isSwap && !isShop)
+        if (fireDown && isFireReady && !isDodge && !isSwap && !isShop && !isDead)
         {
             equipWeapon.Use();
             anim.SetTrigger(equipWeapon.type == Weapon.Type.Melee ? "doSwing" : "doShot");
@@ -200,7 +205,7 @@ public class PlayerController : MonoBehaviour
 
     void Reload()
     {
-        if (equipWeapon == null || equipWeapon.type == Weapon.Type.Melee || ammo == 0)
+        if (equipWeapon == null || equipWeapon.type == Weapon.Type.Melee || ammo == 0 || isDead)
         {
             return;
         }
@@ -224,7 +229,15 @@ public class PlayerController : MonoBehaviour
 
     void Dodge()
     {
-        if (jumpDown && moveVec != Vector3.zero && !isJump && !isDodge && !isSwap && !isShop)
+        if (
+            jumpDown
+            && moveVec != Vector3.zero
+            && !isJump
+            && !isDodge
+            && !isSwap
+            && !isShop
+            && !isDead
+        )
         {
             dodgeVec = moveVec;
             speed *= 2;
@@ -257,6 +270,10 @@ public class PlayerController : MonoBehaviour
 
     void Swap()
     {
+        if (isDead)
+        {
+            return;
+        }
         if (swapDown1 && (!hasWeapons[0] || equipWeaponIndex == 0))
             return;
         if (swapDown2 && (!hasWeapons[1] || equipWeaponIndex == 1))
@@ -290,7 +307,7 @@ public class PlayerController : MonoBehaviour
 
     void Interaction()
     {
-        if (interactionDown && nearObject != null && !isJump && !isDodge && !isShop)
+        if (interactionDown && nearObject != null && !isJump && !isDodge && !isShop && !isDead)
         {
             if (nearObject.tag == "Weapon")
             {
@@ -396,6 +413,11 @@ public class PlayerController : MonoBehaviour
             rigid.AddForce(transform.forward * -25, ForceMode.Impulse);
         }
 
+        if (health <= 0 && !isDead)
+        {
+            OnDie();
+        }
+
         yield return new WaitForSeconds(1f);
         isDamage = false;
         foreach (MeshRenderer mesh in meshs)
@@ -407,6 +429,18 @@ public class PlayerController : MonoBehaviour
         {
             rigid.velocity = Vector3.zero;
         }
+
+        if (health <= 0 && !isDead)
+        {
+            OnDie();
+        }
+    }
+
+    void OnDie()
+    {
+        anim.SetTrigger("doDie");
+        isDead = true;
+        manager.GameOver();
     }
 
     void OnTriggerStay(Collider other)

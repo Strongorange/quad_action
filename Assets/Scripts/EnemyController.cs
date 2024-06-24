@@ -17,9 +17,13 @@ public class EnemyController : MonoBehaviour
 
     public int maxHealth;
     public int currentHealth;
+    public int score;
+    public GameManager manager;
+
     public Transform target;
     public BoxCollider meleeArea;
     public GameObject bullet;
+    public GameObject[] coins;
     public bool isChase;
     public bool isAttack;
     public bool isDead;
@@ -206,7 +210,6 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
-            anim.SetTrigger("doDie");
             foreach (MeshRenderer mesh in meshs)
             {
                 mesh.material.color = Color.red;
@@ -215,6 +218,27 @@ public class EnemyController : MonoBehaviour
             isDead = true;
             nav.enabled = false; // 사망 리액션 (위로 떠오르는) 유지하기 위해서 NavAgent disable. 안하면 시체가 계속 플레이어 따라감
             isChase = false;
+            anim.SetTrigger("doDie");
+            PlayerController player = target.GetComponent<PlayerController>();
+            player.score += score;
+            int randomCoin = Random.Range(0, 3);
+            Instantiate(coins[randomCoin], transform.position, Quaternion.identity);
+
+            switch (enemyType)
+            {
+                case Type.A:
+                    manager.enemyCntA--;
+                    break;
+                case Type.B:
+                    manager.enemyCntB--;
+                    break;
+                case Type.C:
+                    manager.enemyCntC--;
+                    break;
+                case Type.D:
+                    manager.enemyCntD--;
+                    break;
+            }
 
             if (isGrenade)
             {
@@ -232,10 +256,7 @@ public class EnemyController : MonoBehaviour
                 rigid.AddForce(reactVec * 5, ForceMode.Impulse);
             }
 
-            if (enemyType != Type.D)
-            {
-                Destroy(gameObject, 4);
-            }
+            Destroy(gameObject, 4);
         }
     }
 }
