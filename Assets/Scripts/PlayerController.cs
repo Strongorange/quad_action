@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     public int ammo;
     public int health;
     public int coin;
+    public int score;
 
     float hAxis;
     public float speed;
@@ -51,7 +52,7 @@ public class PlayerController : MonoBehaviour
     Rigidbody rigid;
 
     GameObject nearObject;
-    Weapon equipWeapon;
+    public Weapon equipWeapon;
     int equipWeaponIndex = -1;
     float fireDelay;
 
@@ -61,6 +62,9 @@ public class PlayerController : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         rigid = GetComponent<Rigidbody>();
         meshs = GetComponentsInChildren<MeshRenderer>();
+
+        // PlayerPrefs.SetInt("MaxScore", 112500);
+        Debug.Log(PlayerPrefs.GetInt("MaxScore"));
     }
 
     // Update is called once per frame
