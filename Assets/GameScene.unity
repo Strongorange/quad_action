@@ -352,7 +352,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3320669544841490502, guid: 06d503bba93001142b96e3510906db62, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3320669544841490502, guid: 06d503bba93001142b96e3510906db62, type: 3}
       propertyPath: m_TagString
@@ -2363,7 +2363,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 402904553}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 606889618}
+        m_TargetAssemblyTypeName: Shop, Assembly-CSharp
+        m_MethodName: Buy
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &402904553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2841,7 +2853,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 547082654}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1915867588}
+        m_TargetAssemblyTypeName: Shop, Assembly-CSharp
+        m_MethodName: Buy
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &547082654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3199,6 +3223,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiGroup: {fileID: 566114362}
   anim: {fileID: 620370454}
+  itemObj:
+  - {fileID: 1348174882345252545, guid: c2ec4bfd1a6491c49a0c34b8dc3a7639, type: 3}
+  - {fileID: 1509416925549156319, guid: a2e051660762cbe4494c17a095a95e10, type: 3}
+  - {fileID: 547435428816858648, guid: 203326381d9b54d489646c6c2f61f53a, type: 3}
+  itemPrice: f4010000b80b000088130000
+  itemPos:
+  - {fileID: 697347451}
+  - {fileID: 2143793927}
+  - {fileID: 570422463}
+  talkData:
+  - "\uAC15\uB825\uD55C \uBB34\uAE30\uB294 \uC2B9\uB9AC\uC758 \uC9C0\uB984\uAE38\uC774\uC9C0."
+  - "\uC74C? \uB3C8\uC774 \uBAA8\uC790\uB978\uB370... \uB2E4\uC2DC \uD655\uC778\uD574\uBD10."
+  talkText: {fileID: 636014413}
 --- !u!135 &606889619
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -8402,7 +8439,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 328409505970683906, guid: 464cc7c4f7ea10b47a36d7848aa9ca9a, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 328409505970683906, guid: 464cc7c4f7ea10b47a36d7848aa9ca9a, type: 3}
       propertyPath: m_TagString
@@ -9592,7 +9629,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 890540153}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 606889618}
+        m_TargetAssemblyTypeName: Shop, Assembly-CSharp
+        m_MethodName: Buy
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &890540153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9749,7 +9798,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1864200421642171501, guid: 6e77249c61e7d4ee3b8895798eef0fbd, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e77249c61e7d4ee3b8895798eef0fbd, type: 3}
@@ -10627,7 +10676,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9187343066701982198, guid: 4198e2587d1fcca4cb87c16c3cfed34d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9187343066701982198, guid: 4198e2587d1fcca4cb87c16c3cfed34d, type: 3}
       propertyPath: m_TagString
@@ -17335,7 +17384,7 @@ MonoBehaviour:
   maxHasGrenades: 4
   ammo: 0
   health: 100
-  coin: 0
+  coin: 5000
   speed: 15
 --- !u!136 &1375360429
 CapsuleCollider:
@@ -18103,7 +18152,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1864200421642171501, guid: 6e77249c61e7d4ee3b8895798eef0fbd, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e77249c61e7d4ee3b8895798eef0fbd, type: 3}
@@ -23303,7 +23352,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1550427507}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 606889618}
+        m_TargetAssemblyTypeName: Shop, Assembly-CSharp
+        m_MethodName: Buy
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1550427507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29457,7 +29518,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1782732432}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1915867588}
+        m_TargetAssemblyTypeName: Shop, Assembly-CSharp
+        m_MethodName: Buy
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1782732432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35136,6 +35209,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiGroup: {fileID: 1946738808}
   anim: {fileID: 323267739}
+  itemObj:
+  - {fileID: 690041606357937042, guid: 437ad4dccfddbb64b9b2bb88be07abe4, type: 3}
+  - {fileID: 6730158641198373091, guid: 1adf4771a2a84ef4eaaadba340ae7c77, type: 3}
+  - {fileID: 7209417620919649187, guid: 10653eccf6b69fd47938a227b4bf3863, type: 3}
+  itemPrice: e8030000b0040000c4090000
+  itemPos:
+  - {fileID: 464037764}
+  - {fileID: 607169001}
+  - {fileID: 262793702}
+  talkData:
+  - "\uC18C\uBAA8\uD488\uB3C4 \uB4E0\uB4E0\uD558\uAC8C \uCC59\uAE30\uB77C\uAD6C!"
+  - "\uB3C8\uC774 \uBAA8\uC790\uB978 \uAC83 \uAC19\uB124..."
+  talkText: {fileID: 1572902744}
 --- !u!135 &1915867589
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -35556,7 +35642,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7988094277207216310, guid: 83dab506297948d4d8d34c4fe12431ee, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7988094277207216310, guid: 83dab506297948d4d8d34c4fe12431ee, type: 3}
       propertyPath: m_TagString
@@ -35858,7 +35944,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1864200421642171501, guid: 6e77249c61e7d4ee3b8895798eef0fbd, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e77249c61e7d4ee3b8895798eef0fbd, type: 3}
@@ -41555,7 +41641,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2146450231}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1915867588}
+        m_TargetAssemblyTypeName: Shop, Assembly-CSharp
+        m_MethodName: Buy
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2146450231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41607,7 +41705,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1580477354590335820, guid: fc977062eb5f8466aa39b484138441eb, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1580477354590335820, guid: fc977062eb5f8466aa39b484138441eb, type: 3}
       propertyPath: m_TagString
@@ -41716,7 +41814,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6446153308450209258, guid: 5825847427cb1450081bd7ab63279cf2, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5825847427cb1450081bd7ab63279cf2, type: 3}
@@ -41781,7 +41879,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1151204417055101502, guid: 4e5836a4841de4099879c174701054e4, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e5836a4841de4099879c174701054e4, type: 3}
@@ -41846,7 +41944,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4133997299847066266, guid: 0b89a0aa86cf24537aa67a1843c75289, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b89a0aa86cf24537aa67a1843c75289, type: 3}
@@ -41907,7 +42005,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1067420096673684208, guid: 72705bff0a57140c4b9de975179596f7, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72705bff0a57140c4b9de975179596f7, type: 3}
@@ -41968,7 +42066,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 593105225753944263, guid: 09c20d624d02349f18698c3193863ea7, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09c20d624d02349f18698c3193863ea7, type: 3}
@@ -41985,7 +42083,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2846572174586639892, guid: cb34ab8b930c14c79b719aee45b86703, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2846572174586639892, guid: cb34ab8b930c14c79b719aee45b86703, type: 3}
       propertyPath: m_TagString
@@ -42110,7 +42208,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1098703663365205517, guid: d62f97cb85a1743dc8bdf45646094d22, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d62f97cb85a1743dc8bdf45646094d22, type: 3}
@@ -42171,7 +42269,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9151765469619831769, guid: 9fe60024020da45f392d605218468914, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9fe60024020da45f392d605218468914, type: 3}
@@ -42188,7 +42286,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2800918340259385005, guid: 7d86b4089da9e4649b8f12818e42e5ec, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3284545588157862935, guid: 7d86b4089da9e4649b8f12818e42e5ec, type: 3}
       propertyPath: m_RootOrder
@@ -42293,7 +42391,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5981213053516671693, guid: c89a5be1f593b4c52b21aa6c8b70b0d4, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c89a5be1f593b4c52b21aa6c8b70b0d4, type: 3}
@@ -42373,7 +42471,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7058309781522276567, guid: 688ea06cbb5794f24ab349dbe7987e44, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 688ea06cbb5794f24ab349dbe7987e44, type: 3}
@@ -42390,7 +42488,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 130914465377752304, guid: 5db36e1f1f6394621ad6229068921cbe, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 764145942554037834, guid: 5db36e1f1f6394621ad6229068921cbe, type: 3}
       propertyPath: m_RootOrder
@@ -42495,7 +42593,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1864200421642171501, guid: 6e77249c61e7d4ee3b8895798eef0fbd, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e77249c61e7d4ee3b8895798eef0fbd, type: 3}

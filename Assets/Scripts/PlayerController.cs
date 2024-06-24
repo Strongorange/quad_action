@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
     bool isReload;
     bool isBorder;
     bool isDamage;
+    bool isShop;
 
     Vector3 moveVec;
     Vector3 dodgeVec;
@@ -185,7 +186,7 @@ public class PlayerController : MonoBehaviour
 
         fireDelay += Time.deltaTime;
         isFireReady = equipWeapon.rate < fireDelay;
-        if (fireDown && isFireReady && !isDodge && !isSwap)
+        if (fireDown && isFireReady && !isDodge && !isSwap && !isShop)
         {
             equipWeapon.Use();
             anim.SetTrigger(equipWeapon.type == Weapon.Type.Melee ? "doSwing" : "doShot");
@@ -200,7 +201,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (reloadDown && !isJump && !isDodge && !isSwap && isFireReady)
+        if (reloadDown && !isJump && !isDodge && !isSwap && isFireReady && !isShop)
         {
             anim.SetTrigger("doReload");
             isReload = true;
@@ -219,7 +220,7 @@ public class PlayerController : MonoBehaviour
 
     void Dodge()
     {
-        if (jumpDown && moveVec != Vector3.zero && !isJump && !isDodge && !isSwap)
+        if (jumpDown && moveVec != Vector3.zero && !isJump && !isDodge && !isSwap && !isShop)
         {
             dodgeVec = moveVec;
             speed *= 2;
@@ -267,7 +268,7 @@ public class PlayerController : MonoBehaviour
         if (swapDown3)
             weaponIndex = 2;
 
-        if ((swapDown1 || swapDown2 || swapDown3) && !isJump && !isDodge)
+        if ((swapDown1 || swapDown2 || swapDown3) && !isJump && !isDodge && !isShop)
         {
             if (equipWeapon != null)
                 equipWeapon.gameObject.SetActive(false);
@@ -285,7 +286,7 @@ public class PlayerController : MonoBehaviour
 
     void Interaction()
     {
-        if (interactionDown && nearObject != null && !isJump && !isDodge)
+        if (interactionDown && nearObject != null && !isJump && !isDodge && !isShop)
         {
             if (nearObject.tag == "Weapon")
             {
@@ -299,6 +300,7 @@ public class PlayerController : MonoBehaviour
             {
                 Shop shop = nearObject.GetComponent<Shop>();
                 shop.Enter(this);
+                isShop = true;
             }
         }
     }
@@ -421,6 +423,7 @@ public class PlayerController : MonoBehaviour
         {
             Shop shop = nearObject.GetComponent<Shop>();
             shop.Exit();
+            isShop = false;
             nearObject = null;
         }
     }
