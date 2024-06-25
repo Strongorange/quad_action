@@ -89,7 +89,7 @@ public class EnemyController : MonoBehaviour
             targetRadius,
             transform.forward,
             targetRange,
-            LayerMask.GetMask("Player")
+            LayerMask.GetMask("Player") // Player 레이어인 게임오브젝트만 감지
         );
 
         if (rayHits.Length > 0 && !isAttack)
@@ -148,12 +148,6 @@ public class EnemyController : MonoBehaviour
         FreezeVelocity();
     }
 
-    void ChaseStart()
-    {
-        isChase = true;
-        anim.SetBool("isWalk", true);
-    }
-
     void Update()
     {
         if (nav.enabled && enemyType != Type.D)
@@ -161,6 +155,12 @@ public class EnemyController : MonoBehaviour
             nav.SetDestination(target.position);
             nav.isStopped = !isChase;
         }
+    }
+
+    void ChaseStart()
+    {
+        isChase = true;
+        anim.SetBool("isWalk", true);
     }
 
     void OnTriggerEnter(Collider other)

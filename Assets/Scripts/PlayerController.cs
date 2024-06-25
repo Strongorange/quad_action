@@ -7,6 +7,7 @@ using UnityEngine.XR;
 public class PlayerController : MonoBehaviour
 {
     public Camera followCamera;
+    float hAxis;
     float vAxis;
     public GameObject[] weapons;
     public bool[] hasWeapons;
@@ -27,7 +28,6 @@ public class PlayerController : MonoBehaviour
     public int coin;
     public int score;
 
-    float hAxis;
     public float speed;
     bool walkDown;
     bool fireDown;
